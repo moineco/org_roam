@@ -1,0 +1,89 @@
+# `org-capture`
+
+org-capture allows you to:
+
+- Save structured information (e.g., TODOs, notes) to specific Org files.
+- Insert content via templates (which you can customize).
+- Use it from anywhere in Emacs (even if you're editing code).
+- Maintain inbox-zero style workflows by capturing now and organizing later.
+
+Basic Command
+
+```default
+M-x org-capture
+```
+
+Or, using your setup:
+
+```default
+C-c c
+```
+
+That pops up a menu of templates. You select one (e.g., "n" for notes), fill in the entry, and it gets saved to the right Org file.
+
+```default
+(setq org-capture-templates
+      '(
+        ;; 📥 General Inbox Note
+        ("n" "Note" entry (file "~/org/inbox.org")
+         "* %?\nEntered on %U\n  %i\n  %a")
+
+        ;; ✅ TODO Task
+        ("t" "Todo" entry (file+headline "~/org/tasks.org" "Tasks")
+         "* TODO %?\nSCHEDULED: %^t\nEntered on %U\n%i\n%a")
+
+        ;; 📓 Daily Journal
+        ("j" "Journal" entry (file+datetree "~/org/journal.org")
+         "* %?\nEntered on %U\n%i")
+
+        ;; 🧠 Research Idea or Note
+        ("r" "Research Note" entry (file "~/org/research.org")
+         "* %^{Title}\nEntered on %U\n\n** Context\n%?\n\n** References\n")
+
+        ;; 📄 New Article Project
+        ("a" "Article Project" entry (file "~/org/writing/articles.org")
+         "* %^{Article Title}\n:PROPERTIES:\n:Type: Article\n:Status: Idea\n:END:\nEntered on %U\n\n** Abstract\n%?\n\n** Outline\n\n** References\n")
+
+        ;; 📚 Book Chapter or Proposal
+        ("b" "Book Project" entry (file "~/org/writing/books.org")
+         "* %^{Book Title}\n:PROPERTIES:\n:Type: Book\n:Status: Planning\n:END:\nEntered on %U\n\n** Overview\n\n** Chapters\n\n** Notes\n")
+
+        ;; 🖥️ Conference or Presentation
+        ("p" "Presentation" entry (file "~/org/writing/presentations.org")
+         "* %^{Title}\n:PROPERTIES:\n:Type: Presentation\n:Event: %^{Event}\n:Date: %^{Date}t\n:END:\nEntered on %U\n\n** Slides Plan\n\n** Talking Points\n")
+
+        ;; 🧾 Reading Summary
+        ("s" "Reading Summary" entry (file "~/org/readings.org")
+         "* %^{Paper Title}\n:PROPERTIES:\n:Author: %^{Author}\n:Year: %^{Year}\n:END:\nEntered on %U\n\n** Summary\n%?\n\n** Takeaways\n\n** Quotes\n")
+        ))
+```
+
+| Shortcut  | Action                    |
+| --------- | ------------------------- |
+| `C-c c`   | Open capture menu         |
+| `C-c c a` | Start new article idea    |
+| `C-c c p` | Capture presentation prep |
+| `C-c c s` | Save reading summary      |
+| `C-c c r` | Note down research ideas  |
+| `C-c c j` | Add a journal entry       |
+| `C-c c t` | Add a scheduled task      |
+
+
+### File structure
+
+```default
+org/
+├── inbox.org              ; quick capture spot
+├── tasks.org              ; todos and schedules
+├── journal.org            ; daily entries
+├── research.org           ; ideas, experiments
+├── readings.org           ; literature summaries
+└── writing/
+    ├── articles.org       ; journal/conference papers
+    ├── books.org          ; book or proposal drafts
+    └── presentations.org  ; lectures and slides
+```
+
+
+
+

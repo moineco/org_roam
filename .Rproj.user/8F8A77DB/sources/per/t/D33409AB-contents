@@ -1,0 +1,16 @@
+# Setup instructions
+
+- Save this file as ~/.emacs.d/init.el
+- Create the directories to save the files
+
+```default
+mkdir -p ~/org/roam/daily
+touch ~/org/inbox.org
+```
+- Open Emacs and run following code to initialize the database.
+
+```default
+M-x org-roam-db-sync
+```
+
+

@@ -1,0 +1,142 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Org mode to take notes",
+    "section": "",
+    "text": "Preface\nUsing the Emacs platform and org-mode is an excellent means of taking daily notes and schedule.",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "intro.html",
+    "href": "intro.html",
+    "title": "1  Introduction",
+    "section": "",
+    "text": "This is a book created from markdown and executable code.\nSee Knuth (1984) for additional discussion of literate programming.\n\n1 + 1\n\n[1] 2\n\n\n\n\n\n\nKnuth, Donald E. 1984. “Literate Programming.” Comput. J. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "summary.html",
+    "href": "summary.html",
+    "title": "2  Summary",
+    "section": "",
+    "text": "In summary, this book has no content whatsoever.\n\n1 + 1\n\n[1] 2",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Summary</span>"
+    ]
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
+    "section": "",
+    "text": "Knuth, Donald E. 1984. “Literate Programming.” Comput.\nJ. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97.",
+    "crumbs": [
+      "References"
+    ]
+  },
+  {
+    "objectID": "ch_1.html",
+    "href": "ch_1.html",
+    "title": "1  init.el org",
+    "section": "",
+    "text": "This is init.el configuration for Emacs on macOS using Org-roam for daily notes, memos, and networked writing.\nWe can save this directly as ~/.emacs.d/init.el file.\n;;; init.el --- Emacs config Org-roam-based\n;; -------------------------------\n;; 📦 Package Management\n;; -------------------------------\n(require 'package)\n(setq package-enable-at-startup nil)\n(setq package-archives '((\"melpa\" . \"https://melpa.org/packages/\")\n                         (\"gnu\"   . \"https://elpa.gnu.org/packages/\")))\n(package-initialize)\n\n(unless (package-installed-p 'use-package)\n  (package-refresh-contents)\n  (package-install 'use-package))\n(require 'use-package)\n(setq use-package-always-ensure t)\n\n;; ---------------------------------------\n;; 📚 Org-mode Setup (with macOS bindings)\n;; ---------------------------------------\n(use-package org\n  :ensure t\n  :hook ((org-mode . visual-line-mode)\n         (org-mode . variable-pitch-mode))\n  :bind ((\"C-c c\" . org-capture)         ;; Org capture shortcut\n         :map org-mode-map\n         (\"s-d\" . org-deadline)          ;; ⌘ + d → set deadline\n         (\"s-s\" . org-schedule)          ;; ⌘ + s → schedule\n         (\"s-a\" . org-agenda))           ;; ⌘ + a → agenda\n  :config\n  (setq org-directory \"~/org/\")\n  (setq org-agenda-files '(\"~/org/\"))\n  (setq org-log-done 'time)\n  (setq org-startup-indented t)\n  (setq org-hide-emphasis-markers t)\n  (setq org-startup-with-inline-images t)\n  (setq org-deadline-warning-days 7)\n  (setq org-agenda-span 'week)\n  (setq org-read-date-popup-calendar t)\n  (setq calendar-week-start-day 1))\n\n;; ---------------------------------------\n;; ✍️ Org Capture Templates for Researchers\n;; ---------------------------------------\n(setq org-capture-templates\n      '((\"n\" \"Quick Note\" entry (file \"~/org/inbox.org\")\n         \"* %?\\nEntered on %U\\n%i\\n%a\")\n        (\"a\" \"Article\" entry (file+headline \"~/org/inbox.org\" \"Articles\")\n         \"* TODO %^{Title}\\n:PROPERTIES:\\n:Created: %U\\n:Type: Article\\n:END:\\n\\n%?\")\n        (\"b\" \"Book Project\" entry (file+headline \"~/org/inbox.org\" \"Books\")\n         \"* TODO %^{Book Title}\\n:PROPERTIES:\\n:Created: %U\\n:Type: Book\\n:END:\\n\\n%?\")\n        (\"p\" \"Presentation\" entry (file+headline \"~/org/inbox.org\" \"Presentations\")\n         \"* TODO %^{Topic}\\n:PROPERTIES:\\n:Created: %U\\n:Type: Presentation\\n:END:\\n\\n%?\")))\n\n;; ---------------------------------------\n;; 🧠 Org-roam Setup\n;; ---------------------------------------\n(use-package org-roam\n  :ensure t\n  :init\n  (setq org-roam-v2-ack t)\n  :custom\n  (org-roam-directory (file-truename \"~/org/roam/\"))\n  (org-roam-dailies-directory \"daily/\")\n  (org-roam-completion-everywhere t)\n  (org-roam-capture-templates\n   '((\"d\" \"default\" plain\n      \"%?\"\n      :target (file+head \"%&lt;%Y%m%d%H%M%S&gt;-${slug}.org\"\n                         \"#+title: ${title}\\n#+date: %U\\n\")\n      :unnarrowed t)))\n  (org-roam-dailies-capture-templates\n   '((\"d\" \"daily\" entry\n      \"* %?\"\n      :target (file+head \"%&lt;%Y-%m-%d&gt;.org\"\n                         \"#+title: %&lt;%Y-%m-%d&gt;\\n#+date: %U\\n\\n\"))))\n  :bind ((\"C-c n l\" . org-roam-buffer-toggle)\n         (\"C-c n f\" . org-roam-node-find)\n         (\"C-c n i\" . org-roam-node-insert)\n         (\"C-c n d\" . org-roam-dailies-capture-today)\n         (\"C-c n t\" . org-roam-dailies-goto-today))\n  :config\n  (org-roam-db-autosync-enable))\n\n;; -------------------------------\n;; ✍️ Org Capture Templates\n;; -------------------------------\n(setq org-capture-templates\n      '(\n        ;; 📥 General Inbox Note\n        (\"n\" \"Note\" entry (file \"~/org/inbox.org\")\n         \"* %?\\nEntered on %U\\n  %i\\n  %a\")\n\n        ;; ✅ TODO Task\n        (\"t\" \"Todo\" entry (file+headline \"~/org/tasks.org\" \"Tasks\")\n         \"* TODO %?\\nSCHEDULED: %^t\\nEntered on %U\\n%i\\n%a\")\n\n        ;; 📓 Daily Journal\n        (\"j\" \"Journal\" entry (file+datetree \"~/org/journal.org\")\n         \"* %?\\nEntered on %U\\n%i\")\n\n        ;; 🧠 Research Idea or Note\n        (\"r\" \"Research Note\" entry (file \"~/org/research.org\")\n         \"* %^{Title}\\nEntered on %U\\n\\n** Context\\n%?\\n\\n** References\\n\")\n\n        ;; 📄 New Article Project\n        (\"a\" \"Article Project\" entry (file \"~/org/writing/articles.org\")\n         \"* %^{Article Title}\\n:PROPERTIES:\\n:Type: Article\\n:Status: Idea\\n:END:\\nEntered on %U\\n\\n** Abstract\\n%?\\n\\n** Outline\\n\\n** References\\n\")\n\n        ;; 📚 Book Chapter or Proposal\n        (\"b\" \"Book Project\" entry (file \"~/org/writing/books.org\")\n         \"* %^{Book Title}\\n:PROPERTIES:\\n:Type: Book\\n:Status: Planning\\n:END:\\nEntered on %U\\n\\n** Overview\\n\\n** Chapters\\n\\n** Notes\\n\")\n\n        ;; 🖥️ Conference or Presentation\n        (\"p\" \"Presentation\" entry (file \"~/org/writing/presentations.org\")\n         \"* %^{Title}\\n:PROPERTIES:\\n:Type: Presentation\\n:Event: %^{Event}\\n:Date: %^{Date}t\\n:END:\\nEntered on %U\\n\\n** Slides Plan\\n\\n** Talking Points\\n\")\n\n        ;; 🧾 Reading Summary\n        (\"s\" \"Reading Summary\" entry (file \"~/org/readings.org\")\n         \"* %^{Paper Title}\\n:PROPERTIES:\\n:Author: %^{Author}\\n:Year: %^{Year}\\n:END:\\nEntered on %U\\n\\n** Summary\\n%?\\n\\n** Takeaways\\n\\n** Quotes\\n\")\n        ))\n\n;; -------------------------------\n;; 💡 Visual Enhancements\n;; -------------------------------\n(use-package org-bullets\n  :hook (org-mode . org-bullets-mode))\n\n(use-package visual-fill-column\n  :hook (org-mode . visual-fill-column-mode)\n  :config\n  (setq visual-fill-column-width 100\n        visual-fill-column-center-text t))\n\n(use-package solarized-theme\n  :config\n  (load-theme 'solarized-dark t))\n\n(global-display-line-numbers-mode 1)\n(add-hook 'org-mode-hook (lambda () (display-line-numbers-mode 0)))\n\n;; Optional: Nicer Org UI\n(use-package org-modern\n  :config (global-org-modern-mode))\n\n(use-package org-appear\n  :hook (org-mode . org-appear-mode))\n\n;; -------------------------------\n;; 🖥️ macOS Enhancements and Font\n;; -------------------------------\n(when (eq system-type 'darwin)\n  ;; Set font size to 18pt and background to black\n  (add-to-list 'default-frame-alist '(font . \"Menlo-18\"))\n  (add-to-list 'default-frame-alist '(background-color . \"black\"))\n  (add-to-list 'default-frame-alist '(foreground-color . \"white\"))\n  (setq mac-option-modifier 'meta)\n  (setq mac-command-modifier 'super)\n  (setq mac-right-option-modifier nil))\n\n;; -------------------------------\n;; 🔤 Spell Checking & Dictionary\n;; -------------------------------\n(setq ispell-program-name \"aspell\")  ;; or \"hunspell\"\n(setq ispell-dictionary \"en\")       ;; default dictionary\n\n;; Enable Flyspell in text and org modes\n(dolist (hook '(text-mode-hook org-mode-hook))\n  (add-hook hook 'flyspell-mode))\n\n;; Optional: enable in comments for code\n(add-hook 'prog-mode-hook 'flyspell-prog-mode)\n\n;; Set correction keybinding (use M-$ to check word)\n(global-set-key (kbd \"C-;\") 'flyspell-correct-wrapper)\n\n(use-package flyspell\n  :ensure t\n  :hook ((text-mode . flyspell-mode)\n         (org-mode  . flyspell-mode)\n         (prog-mode . flyspell-prog-mode))\n  :config\n  (setq ispell-program-name \"aspell\"\n        ispell-dictionary \"en\"))\n\n;; -------------------------------\n;; 📁 Directory Suggestions\n;; -------------------------------\n;; ~/org/\n;; ├── inbox.org\n;; ├── roam/\n;; │   ├── daily/\n;; │   │   └── 2025-07-25.org\n;; │   └── 20250725123000-my-topic.org\n\n;; Optional for iCloud sync:\n;; (setq org-directory \"~/Library/Mobile Documents/com~apple~CloudDocs/org/\")\n;; (setq org-roam-directory (file-truename \"~/Library/Mobile Documents/com~apple~CloudDocs/org/roam/\"))\n\n(provide 'init)\n;;; init.el ends here\n(custom-set-variables\n ;; custom-set-variables was added by Custom.\n ;; If you edit it by hand, you could mess it up, so be careful.\n ;; Your init file should contain only one such instance.\n ;; If there is more than one, they won't work right.\n '(package-selected-packages nil))\n(custom-set-faces\n ;; custom-set-faces was added by Custom.\n ;; If you edit it by hand, you could mess it up, so be careful.\n ;; Your init file should contain only one such instance.\n ;; If there is more than one, they won't work right.\n )",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>`init.el` org</span>"
+    ]
+  },
+  {
+    "objectID": "ch_2.html",
+    "href": "ch_2.html",
+    "title": "2  Setup instructions",
+    "section": "",
+    "text": "Save this file as ~/.emacs.d/init.el\nCreate the directories to save the files\n\nmkdir -p ~/org/roam/daily\ntouch ~/org/inbox.org\n\nOpen Emacs and run following code to initialize the database.\n\nM-x org-roam-db-sync",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Setup instructions</span>"
+    ]
+  },
+  {
+    "objectID": "ch_1.html#init.el-for-macos-org-roam-daily-notes",
+    "href": "ch_1.html#init.el-for-macos-org-roam-daily-notes",
+    "title": "1  Chapter 1",
+    "section": "",
+    "text": ";;; init.el --- Emacs config for Org-roam-based daily notes on macOS\n\n;; -------------------------------\n;; 📦 Package Management\n;; -------------------------------\n(require 'package)\n(setq package-enable-at-startup nil)\n(setq package-archives '((\"melpa\" . \"https://melpa.org/packages/\")\n                         (\"gnu\"   . \"https://elpa.gnu.org/packages/\")))\n(package-initialize)\n\n(unless (package-installed-p 'use-package)\n  (package-refresh-contents)\n  (package-install 'use-package))\n(require 'use-package)\n(setq use-package-always-ensure t)\n\n;; -------------------------------\n;; 🧠 Org & Org-Roam\n;; -------------------------------\n(use-package org\n  :hook (org-mode . visual-line-mode)\n  :config\n  (setq org-directory \"~/org/\")\n  (setq org-agenda-files (list org-directory))\n  (setq org-log-done 'time)\n  (setq org-startup-indented t)\n  (setq org-hide-emphasis-markers t))\n\n(use-package org-roam\n  :init\n  (setq org-roam-v2-ack t)\n  :custom\n  (org-roam-directory (file-truename \"~/org/roam/\"))\n  (org-roam-dailies-directory \"daily/\")\n  (org-roam-completion-everywhere t)\n  (org-roam-capture-templates\n   '((\"d\" \"default\" plain\n      \"%?\"\n      :target (file+head \"%&lt;%Y%m%d%H%M%S&gt;-${slug}.org\"\n                         \"#+title: ${title}\\n#+date: %U\\n\")\n      :unnarrowed t)))\n  (org-roam-dailies-capture-templates\n   '((\"d\" \"daily\" entry\n      \"* %?\"\n      :target (file+head \"%&lt;%Y-%m-%d&gt;.org\"\n                         \"#+title: %&lt;%Y-%m-%d&gt;\\n#+date: %U\\n\\n\"))))\n  :bind ((\"C-c n l\" . org-roam-buffer-toggle)\n         (\"C-c n f\" . org-roam-node-find)\n         (\"C-c n i\" . org-roam-node-insert)\n         (\"C-c n d\" . org-roam-dailies-capture-today)\n         (\"C-c n t\" . org-roam-dailies-goto-today))\n  :config\n  (org-roam-db-autosync-enable))\n\n;; -------------------------------\n;; ✍️ Org Capture Templates\n;; -------------------------------\n(setq org-capture-templates\n      '((\"n\" \"Note\" entry (file \"~/org/inbox.org\")\n         \"* %?\\nEntered on %U\\n  %i\\n  %a\")))\n(global-set-key (kbd \"C-c c\") 'org-capture)\n\n;; -------------------------------\n;; 🖥️ macOS Enhancements\n;; -------------------------------\n(when (eq system-type 'darwin)\n  (setq mac-option-modifier 'meta)\n  (setq mac-command-modifier 'super)\n  (setq mac-right-option-modifier nil)\n  (setq default-frame-alist '((font . \"Menlo-14\"))))\n\n(setq select-enable-clipboard t)\n(setq save-interprogram-paste-before-kill t)\n(setq inhibit-startup-message t)\n(setq scroll-step 1\n      scroll-conservatively 10000)\n\n;; -------------------------------\n;; 💡 Visual Enhancements\n;; -------------------------------\n(use-package org-bullets\n  :hook (org-mode . org-bullets-mode))\n\n(use-package visual-fill-column\n  :hook (org-mode . visual-fill-column-mode)\n  :config\n  (setq visual-fill-column-width 100\n        visual-fill-column-center-text t))\n\n(use-package solarized-theme\n  :config\n  (load-theme 'solarized-dark t))\n\n(global-display-line-numbers-mode 1)\n(add-hook 'org-mode-hook (lambda () (display-line-numbers-mode 0)))\n\n;; -------------------------------\n;; 📁 Directory Suggestions\n;; -------------------------------\n;; ~/org/\n;; ├── inbox.org\n;; ├── roam/\n;; │   ├── daily/\n;; │   │   └── 2025-07-25.org\n;; │   └── 20250725123000-my-topic.org\n\n;; Optional for iCloud sync:\n;; (setq org-directory \"~/Library/Mobile Documents/com~apple~CloudDocs/org/\")\n;; (setq org-roam-directory (file-truename \"~/Library/Mobile Documents/com~apple~CloudDocs/org/roam/\"))\n\n(provide 'init)\n;;; init.el ends here",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>`init.el` for macOS + org-roam</span>"
+    ]
+  },
+  {
+    "objectID": "ch_2.html#setup-instructions",
+    "href": "ch_2.html#setup-instructions",
+    "title": "2  Chapter 2",
+    "section": "",
+    "text": "Save this file as ~/.emacs.d/init.el\nCreate the directories to save the files\n\nmkdir -p ~/org/roam/daily\ntouch ~/org/inbox.org\n\nOpen Emacs and run following code to initialize the database.\n\nM-x org-roam-db-sync",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Setup instructions</span>"
+    ]
+  },
+  {
+    "objectID": "ch_3.html",
+    "href": "ch_3.html",
+    "title": "3  Keyboard setup",
+    "section": "",
+    "text": "Create or find a note: M-x org-roam-node-find / C-c n f\nLink to existing note: M-x org-roam-node-insert / C-c n i",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Keyboard setup</span>"
+    ]
+  },
+  {
+    "objectID": "ch_4.html",
+    "href": "ch_4.html",
+    "title": "4  Start drafting daily notes",
+    "section": "",
+    "text": "4.1 Create a org-roam daily note\nUse this for concepts, research ideas, memos, or any structured note.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Start drafting daily notes</span>"
+    ]
+  },
+  {
+    "objectID": "ch_4.html#create-a-daily-schedule",
+    "href": "ch_4.html#create-a-daily-schedule",
+    "title": "4  Start drafting notes",
+    "section": "4.2 Create a daily schedule",
+    "text": "4.2 Create a daily schedule\n\nCommand to create a new daily note\n\nC-c n t\n\nThis opens or creates a file like: ~/org/roam/daily/2025-07-25.org\n\n\n4.2.1 Shortcut Command Description\n\nC-c n d &gt; org-roam-dailies-capture-today: Capture into today’s daily note\nC-c n t &gt; org-roam-dailies-goto-today: Open today’s daily note\nC-c n y &gt; org-roam-dailies-goto-yesterday: Go to yesterday’s daily note\nC-c n T &gt; org-roam-dailies-goto-tomorrow: Go to tomorrow’s note\nC-c n D &gt; org-roam-dailies-goto-date: Select and jump to any date’s note",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Start drafting notes</span>"
+    ]
+  },
+  {
+    "objectID": "ch_4.html#link-to-another-note",
+    "href": "ch_4.html#link-to-another-note",
+    "title": "4  Start drafting notes",
+    "section": "4.3 Link to another note",
+    "text": "4.3 Link to another note\nTo link an idea to another note: Command:\nM-x org-roam-node-insert\nOr simply: C-c n i\nChoose the note you want to link\nA clickable link like [[id:abc123][Green Policy]] is inserted",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Start drafting notes</span>"
+    ]
+  },
+  {
+    "objectID": "ch_4.html#create-a-org-roam-daily-note",
+    "href": "ch_4.html#create-a-org-roam-daily-note",
+    "title": "4  Start drafting daily notes",
+    "section": "",
+    "text": "Command to create a new daily note\n\nC-c n t\n\nThis opens or creates a file like: ~/org/roam/daily/2025-07-25.org\n\n\n4.1.1 Shortcut Command Description\n\nC-c n t &gt; org-roam-dailies-goto-today: Open today’s daily note",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Start drafting daily notes</span>"
+    ]
+  },
+  {
+    "objectID": "ch_5.html",
+    "href": "ch_5.html",
+    "title": "5  org-capture",
+    "section": "",
+    "text": "org-capture allows you to:\n\nSave structured information (e.g., TODOs, notes) to specific Org files.\nInsert content via templates (which you can customize).\nUse it from anywhere in Emacs (even if you’re editing code).\nMaintain inbox-zero style workflows by capturing now and organizing later.\n\nBasic Command\nM-x org-capture\nOr, using your setup:\nC-c c\nThat pops up a menu of templates. You select one (e.g., “n” for notes), fill in the entry, and it gets saved to the right Org file.\n(setq org-capture-templates\n      '(\n        ;; 📥 General Inbox Note\n        (\"n\" \"Note\" entry (file \"~/org/inbox.org\")\n         \"* %?\\nEntered on %U\\n  %i\\n  %a\")\n\n        ;; ✅ TODO Task\n        (\"t\" \"Todo\" entry (file+headline \"~/org/tasks.org\" \"Tasks\")\n         \"* TODO %?\\nSCHEDULED: %^t\\nEntered on %U\\n%i\\n%a\")\n\n        ;; 📓 Daily Journal\n        (\"j\" \"Journal\" entry (file+datetree \"~/org/journal.org\")\n         \"* %?\\nEntered on %U\\n%i\")\n\n        ;; 🧠 Research Idea or Note\n        (\"r\" \"Research Note\" entry (file \"~/org/research.org\")\n         \"* %^{Title}\\nEntered on %U\\n\\n** Context\\n%?\\n\\n** References\\n\")\n\n        ;; 📄 New Article Project\n        (\"a\" \"Article Project\" entry (file \"~/org/writing/articles.org\")\n         \"* %^{Article Title}\\n:PROPERTIES:\\n:Type: Article\\n:Status: Idea\\n:END:\\nEntered on %U\\n\\n** Abstract\\n%?\\n\\n** Outline\\n\\n** References\\n\")\n\n        ;; 📚 Book Chapter or Proposal\n        (\"b\" \"Book Project\" entry (file \"~/org/writing/books.org\")\n         \"* %^{Book Title}\\n:PROPERTIES:\\n:Type: Book\\n:Status: Planning\\n:END:\\nEntered on %U\\n\\n** Overview\\n\\n** Chapters\\n\\n** Notes\\n\")\n\n        ;; 🖥️ Conference or Presentation\n        (\"p\" \"Presentation\" entry (file \"~/org/writing/presentations.org\")\n         \"* %^{Title}\\n:PROPERTIES:\\n:Type: Presentation\\n:Event: %^{Event}\\n:Date: %^{Date}t\\n:END:\\nEntered on %U\\n\\n** Slides Plan\\n\\n** Talking Points\\n\")\n\n        ;; 🧾 Reading Summary\n        (\"s\" \"Reading Summary\" entry (file \"~/org/readings.org\")\n         \"* %^{Paper Title}\\n:PROPERTIES:\\n:Author: %^{Author}\\n:Year: %^{Year}\\n:END:\\nEntered on %U\\n\\n** Summary\\n%?\\n\\n** Takeaways\\n\\n** Quotes\\n\")\n        ))\n\n\n\nShortcut\nAction\n\n\n\n\nC-c c\nOpen capture menu\n\n\nC-c c a\nStart new article idea\n\n\nC-c c p\nCapture presentation prep\n\n\nC-c c s\nSave reading summary\n\n\nC-c c r\nNote down research ideas\n\n\nC-c c j\nAdd a journal entry\n\n\nC-c c t\nAdd a scheduled task\n\n\n\n\n5.0.1 File structure\norg/\n├── inbox.org              ; quick capture spot\n├── tasks.org              ; todos and schedules\n├── journal.org            ; daily entries\n├── research.org           ; ideas, experiments\n├── readings.org           ; literature summaries\n└── writing/\n    ├── articles.org       ; journal/conference papers\n    ├── books.org          ; book or proposal drafts\n    └── presentations.org  ; lectures and slides",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>`org-capture`</span>"
+    ]
+  }
+]
