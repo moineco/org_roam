@@ -1,4 +1,0 @@
-# Keyboard setup
-
-- Create or find a note:   M-x org-roam-node-find / C-c n f
-- Link to existing note:   M-x org-roam-node-insert / C-c n i

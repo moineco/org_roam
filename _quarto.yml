@@ -3,16 +3,13 @@ project:
   output-dir: docs
 
 book:
-  title: "Org mode to take notes"
+  title: "Org-mode"
   author: "Moinul Islam"
   date: "today"
   chapters:
     - index.qmd
     - ch_1.qmd
     - ch_2.qmd
-    - ch_3.qmd
-    - ch_4.qmd
-    - ch_5.qmd
     - references.qmd
 
 bibliography: references.bib

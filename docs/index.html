@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Moinul Islam">
-<meta name="dcterms.date" content="2025-07-27">
+<meta name="dcterms.date" content="2025-07-31">
 
-<title>Org mode to take notes</title>
+<title>Org-mode</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -97,7 +97,7 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Org mode to take notes</a> 
+      <a href="./">Org-mode</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -116,31 +116,13 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch_1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title"><code>init.el</code> macos + org</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title"><code>init.el</code></span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch_2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Setup instructions</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ch_3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Keyboard setup</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ch_4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Start drafting daily notes</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ch_5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title"><code>org-capture</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title"><code>init-macos.el</code></span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -168,7 +150,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Org mode to take notes</h1>
+<h1 class="title">Org-mode</h1>
 </div>
 
 
@@ -185,7 +167,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">July 27, 2025</p>
+      <p class="date">July 31, 2025</p>
     </div>
   </div>
   
@@ -200,6 +182,16 @@ ul.task-list li input[type="checkbox"] {
 <section id="preface" class="level1 unnumbered">
 <h1 class="unnumbered">Preface</h1>
 <p>Using the Emacs platform and org-mode is an excellent means of taking daily notes and schedule.</p>
+<p>Org-roam is a tool within Org-mode. Org-roam allows for effortless non-hierarchical note-taking: with Org-roam, notes flow naturally, making note-taking fun and easy. Org-roam augments the Org-mode syntax, and will work for anyone already using Org-mode for their personal wiki.</p>
+<p>Org-roam leverages the mature ecosystem around Org-mode. For example, it has first-class support for org-ref for citation management, and is able to piggyback off Org’s excellent LaTeX and source-block evaluation capabilities.</p>
+<p>Org-roam provides these benefits over other tooling:</p>
+<ul>
+<li><p>Privacy and Security: Your personal wiki belongs only to you, entirely offline and in your control. Encrypt your notes with GPG.</p></li>
+<li><p>Longevity of Plain Text: Unlike web solutions like Roam Research, the notes are first and foremost plain Org-mode files – Org-roam simply builds an auxiliary database to give the personal wiki superpowers. Having your notes in plain-text is crucial for the longevity of your wiki. Never have to worry about proprietary web solutions being taken down. The notes are still functional even if Org-roam ceases to exist.</p></li>
+<li><p>Free and Open Source: Org-roam is free and open-source, which means that if you feel unhappy with any part of Org-roam, you may choose to extend Org-roam, or open a pull request.</p></li>
+<li><p>Leverage the Org-mode ecosystem: Over the decades, Emacs and Org-mode has developed into a mature system for plain-text organization. Building upon Org-mode already puts Org-roam light-years ahead of many other solutions.</p></li>
+<li><p>Built on Emacs: Emacs is also a fantastic interface for editing text, and Org-roam inherits many of the powerful text-navigation and editing packages available to Emacs.</p></li>
+</ul>
 
 
 </section>
@@ -626,8 +618,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   <div class="nav-page nav-page-previous">
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./ch_1.html" class="pagination-link" aria-label="`init.el` macos + org">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title"><code>init.el</code> macos + org</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./ch_1.html" class="pagination-link" aria-label="`init.el`">
+        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title"><code>init.el</code></span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
