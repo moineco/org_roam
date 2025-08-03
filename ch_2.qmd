@@ -1,4 +1,4 @@
-# `init-macos.el` 
+# init-macos.el 
 
 This is init-macos.el configuration for Emacs on MacOS.
 

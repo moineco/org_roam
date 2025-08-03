@@ -1,4 +1,4 @@
-# `init.el` 
+# init.el 
 
 This is init.el configuration for Emacs on MacOS using Org-roam.
 
