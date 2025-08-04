@@ -13,6 +13,11 @@ book:
     - ch_3.qmd
     - ch_4.qmd
     - ch_5.qmd
+    - ch_6.qmd
+    - ch_7.qmd
+    - ch_8.qmd
+    - ch_9.qmd
+    - ch_10.qmd
     - references.qmd
 
 bibliography: references.bib

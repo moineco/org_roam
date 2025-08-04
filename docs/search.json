@@ -12,11 +12,11 @@
   {
     "objectID": "ch_1.html",
     "href": "ch_1.html",
-    "title": "1  Directory structure",
+    "title": "1  structure",
     "section": "",
-    "text": "This Emacs configuration is well-structured for writing (especially in LaTeX and Org-mode), and personal knowledge management (via Org-roam).\nI use this directly as ~/.emacs.d/init.el file.\n~/.emacs.d/\n├── init.el                    ;; Main entry point (already done)\n├── custom.el                  ;; User customizations\n├── backups/                   ;; Auto-created\n├── auto-saves/                ;; Auto-created\n└── lisp/\n    ├── init-ui.el             ;; Fonts, theme, visuals\n    ├── init-editing.el        ;; Smartparens, smex, wraps, spelling\n    ├── init-org.el            ;; Org-mode settings\n    ├── init-roam.el           ;; Org-roam config\n    ├── init-latex.el          ;; AUCTeX + latexmk setup\n    ├── init-company.el        ;; Company-mode auto-completion\n    └── init-macos.el          ;; macOS-specific setup\n\nPlace each file in ~/.emacs.d/lisp/\nKeep init.el in ~/.emacs.d/",
+    "text": "This Emacs configuration is well-structured for writing (especially in LaTeX and Org-mode), and personal knowledge management (via Org-roam).\nI use this directly as ~/.emacs.d/init.el file.\n~/.emacs.d/\n├── init.el                    ;; Main entry point (already done)\n├── custom.el                  ;; User customizations\n├── backups/                   ;; Auto-created\n├── auto-saves/                ;; Auto-created\n└── lisp/\n    ├── init-ui.el             ;; Fonts, theme, visuals\n    ├── init-editing.el        ;; Smartparens, smex, wraps, spelling\n    ├── init-org.el            ;; Org-mode settings\n    ├── init-roam.el           ;; Org-roam config\n    ├── init-latex.el          ;; AUCTeX + latexmk setup\n    ├── init-company.el        ;; Company-mode auto-completion\n    └── init-macos.el          ;; macOS-specific setup\n\nPlace each file in ~/.emacs.d/lisp/\nPlace init.el in ~/.emacs.d/\nPlace .latexmkrc in ~/.latexmkrc",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Directory structure</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>structure</span>"
     ]
   },
   {
@@ -57,6 +57,56 @@
     "text": "Place the init-org.el file in ~/.emacs.d/lisp/\n\n;;; init-org.el --- Org mode configuration\n\n(use-package org\n  :ensure t\n  :hook ((org-mode . org-indent-mode)\n         (org-mode . visual-line-mode))\n  :config\n  (setq org-log-done 'time\n        org-startup-folded t\n        org-icalendar-include-todo t\n        org-hide-emphasis-markers t\n        org-pretty-entities t\n        org-return-follows-link t))\n\n;; Optional: modern org appearance\n(use-package org-modern\n  :ensure t\n  :hook (org-mode . org-modern-mode))\n\n(provide 'init-org)\n;;; init-org.el ends here",
     "crumbs": [
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>init-org.el</span>"
+    ]
+  },
+  {
+    "objectID": "ch_6.html",
+    "href": "ch_6.html",
+    "title": "6  init-roam.el",
+    "section": "",
+    "text": "Place the init-roam.el file in ~/.emacs.d/lisp/\n\n;;; init-roam.el --- Org-roam setup\n\n(use-package org-roam\n  :ensure t\n  :init\n  (setq org-roam-v2-ack t)\n  :custom\n  (org-roam-directory (file-truename \"~/MEGA/org/roam/\"))\n  (org-roam-dailies-directory \"daily/\")\n  (org-roam-completion-everywhere t)\n  (org-roam-capture-templates\n   '((\"d\" \"default\" plain\n      \"%?\"\n      :target (file+head \"%&lt;%Y%m%d%H%M%S&gt;-${slug}.org\"\n                         \"#+title: ${title}\\n#+date: %U\\n\")\n      :unnarrowed t)))\n  (org-roam-dailies-capture-templates\n   '((\"d\" \"daily\" entry\n      \"* %?\"\n      :target (file+head \"%&lt;%Y-%m-%d&gt;.org\"\n                         \"#+title: %&lt;%Y-%m-%d&gt;\\n#+date: %U\\n\\n\"))))\n  :bind (\"C-c n l\" . org-roam-buffer-toggle)\n        (\"C-c n f\" . org-roam-node-find)\n        (\"C-c n i\" . org-roam-node-insert)\n        (\"C-c n d\" . org-roam-dailies-capture-today)\n        (\"C-c n t\" . org-roam-dailies-goto-today)\n  :config\n  (org-roam-db-autosync-enable))\n\n(provide 'init-roam)\n;;; init-roam.el ends here",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>init-roam.el</span>"
+    ]
+  },
+  {
+    "objectID": "ch_7.html",
+    "href": "ch_7.html",
+    "title": "7  init-latex.el",
+    "section": "",
+    "text": "Place the init-latex.el file in ~/.emacs.d/lisp/\n\n;;; init-latex.el --- LaTeX / AUCTeX + latexmk configuration\n\n(use-package tex\n  :ensure auctex\n  :defer t\n  :hook (LaTeX-mode . my/latex-setup)\n  :config\n  (setq TeX-auto-save t\n        TeX-parse-self t\n        TeX-save-query nil\n        TeX-PDF-mode t\n        TeX-source-correlate-mode t\n        TeX-source-correlate-method 'synctex)\n\n  (setq TeX-view-program-selection\n        '(((output-pdf \"PDF Viewer\"))))\n\n  ;; Use Skim with SyncTeX or fallback to Preview.app\n  (setq TeX-view-program-list\n        '((\"PDF Viewer\" \"/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b\")))\n\n  (add-to-list 'TeX-command-list\n               '(\"LatexMk\"\n                 \"latexmk -pdf -synctex=1 -interaction=nonstopmode %s\"\n                 TeX-run-TeX nil t\n                 :help \"Run latexmk for PDF output\"))\n\n  (setq TeX-command-default \"LatexMk\"))\n\n(defun my/latex-setup ()\n  \"My custom LaTeX setup.\"\n  (turn-on-reftex)\n  (setq reftex-plug-into-AUCTeX t)\n  (flyspell-mode 1)\n  (LaTeX-math-mode 1)\n  (visual-line-mode 1))\n\n(provide 'init-latex)\n;;; init-latex.el ends here",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>init-latex.el</span>"
+    ]
+  },
+  {
+    "objectID": "ch_8.html",
+    "href": "ch_8.html",
+    "title": "8  init-company.el",
+    "section": "",
+    "text": "Place the init-company.el file in ~/.emacs.d/lisp/\n\n;;; init-company.el --- Company-mode configuration\n\n(use-package company\n  :hook ((after-init . global-company-mode)\n         (LaTeX-mode . company-mode))\n  :config\n  (setq company-idle-delay 0.2\n        company-minimum-prefix-length 2\n        company-tooltip-align-annotations t\n        company-dabbrev-downcase nil))\n\n(provide 'init-company)\n;;; init-company.el ends here",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>init-company.el</span>"
+    ]
+  },
+  {
+    "objectID": "ch_9.html",
+    "href": "ch_9.html",
+    "title": "9  init-macos.el",
+    "section": "",
+    "text": "Place the init-macos.el file in ~/.emacs.d/lisp/\n\n;; -----------------------------------------\n;; 🍎 MacOS-Specific Setup for Emacs\n;; -----------------------------------------\n\n;; 🧠 Startup: Performance tuning\n(setq native-comp-async-report-warnings-errors nil) ; silence native-comp warnings\n(setq gc-cons-threshold (* 50 1000 1000))           ; increase GC threshold for faster startup\n\n(add-hook 'emacs-startup-hook\n          (lambda ()\n            (message \"✅ Emacs ready in %.2f seconds with %d GCs.\"\n                     (float-time (time-subtract after-init-time before-init-time))\n                     gcs-done)))\n\n;; 📦 Environment: Mac shell paths\n(use-package exec-path-from-shell\n  :if (memq window-system '(mac ns x))\n  :config\n  (exec-path-from-shell-initialize))\n\n;; Add MacPorts paths for TeXLive and Hunspell\n(let ((my-paths '(\"/opt/local/libexec/texlive/texbin\"\n                  \"/opt/local/bin\")))\n  (setenv \"PATH\" (concat (mapconcat #'identity my-paths \":\") \":\" (getenv \"PATH\")))\n  (setq exec-path (append my-paths exec-path)))\n\n;; 🎨 Visuals: Theme, font, retina, fullscreen\n(when (eq system-type 'darwin)\n  ;; Prefer dark mode and unified title bar\n  (add-to-list 'default-frame-alist '(ns-appearance . dark))\n  (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t)))\n\n(setq frame-resize-pixelwise t)                             ; Retina/HiDPI fix\n(add-to-list 'default-frame-alist '(fullscreen . maximized)) ; Start maximized\n(set-fontset-font t 'symbol (font-spec :family \"Apple Color Emoji\") nil 'prepend)\n\n;; 🖱️ Mouse & Trackpad: Smooth scrolling\n(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ; 1 line at a time\n(setq mouse-wheel-progressive-speed nil)\n(setq scroll-step 1)\n\n;; 📋 Clipboard and Input\n(setq select-enable-clipboard t)\n(setq save-interprogram-paste-before-kill t)\n(setq use-dialog-box nil) ; no popups\n\n;; Optional: Better Japanese keyboard handling (¥ = \\)\n;; (define-key global-map [?¥] [?\\\\])\n\n;; 🧼 UI Hygiene (uncomment if desired)\n;; (menu-bar-mode -1)\n;; (tool-bar-mode -1)\n;; (scroll-bar-mode -1)\n\n(provide 'init-macos)",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>init-macos.el</span>"
+    ]
+  },
+  {
+    "objectID": "ch_10.html",
+    "href": "ch_10.html",
+    "title": "10  latexmkrc",
+    "section": "",
+    "text": "Place .latexmkrc in ~/.latexmkrc\n\n# Generate pdf using pdflatex (-pdf)\n$pdf_mode=1;\n\n# Use bibtex if a .bib file exists\n$bibtex_use=1;\n\n# Define command to compile with pdfsync support and nonstopmode\n$pdflatex= 'pdflatex -synctex=1 --interaction=nonstopmode -file-line-error';\n\n# Continous compiling\n$preview_continuous_mode=1;",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>latexmkrc</span>"
     ]
   }
 ]

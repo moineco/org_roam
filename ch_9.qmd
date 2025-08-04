@@ -1,0 +1,62 @@
+# init-macos.el
+
+- Place the init-macos.el file in ~/.emacs.d/lisp/
+
+```default
+;; -----------------------------------------
+;; 🍎 MacOS-Specific Setup for Emacs
+;; -----------------------------------------
+
+;; 🧠 Startup: Performance tuning
+(setq native-comp-async-report-warnings-errors nil) ; silence native-comp warnings
+(setq gc-cons-threshold (* 50 1000 1000))           ; increase GC threshold for faster startup
+
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (message "✅ Emacs ready in %.2f seconds with %d GCs."
+                     (float-time (time-subtract after-init-time before-init-time))
+                     gcs-done)))
+
+;; 📦 Environment: Mac shell paths
+(use-package exec-path-from-shell
+  :if (memq window-system '(mac ns x))
+  :config
+  (exec-path-from-shell-initialize))
+
+;; Add MacPorts paths for TeXLive and Hunspell
+(let ((my-paths '("/opt/local/libexec/texlive/texbin"
+                  "/opt/local/bin")))
+  (setenv "PATH" (concat (mapconcat #'identity my-paths ":") ":" (getenv "PATH")))
+  (setq exec-path (append my-paths exec-path)))
+
+;; 🎨 Visuals: Theme, font, retina, fullscreen
+(when (eq system-type 'darwin)
+  ;; Prefer dark mode and unified title bar
+  (add-to-list 'default-frame-alist '(ns-appearance . dark))
+  (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t)))
+
+(setq frame-resize-pixelwise t)                             ; Retina/HiDPI fix
+(add-to-list 'default-frame-alist '(fullscreen . maximized)) ; Start maximized
+(set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend)
+
+;; 🖱️ Mouse & Trackpad: Smooth scrolling
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ; 1 line at a time
+(setq mouse-wheel-progressive-speed nil)
+(setq scroll-step 1)
+
+;; 📋 Clipboard and Input
+(setq select-enable-clipboard t)
+(setq save-interprogram-paste-before-kill t)
+(setq use-dialog-box nil) ; no popups
+
+;; Optional: Better Japanese keyboard handling (¥ = \)
+;; (define-key global-map [?¥] [?\\])
+
+;; 🧼 UI Hygiene (uncomment if desired)
+;; (menu-bar-mode -1)
+;; (tool-bar-mode -1)
+;; (scroll-bar-mode -1)
+
+(provide 'init-macos)
+```
+

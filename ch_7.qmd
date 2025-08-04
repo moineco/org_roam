@@ -1,0 +1,46 @@
+# init-latex.el
+
+- Place the init-latex.el file in ~/.emacs.d/lisp/
+
+```default
+;;; init-latex.el --- LaTeX / AUCTeX + latexmk configuration
+
+(use-package tex
+  :ensure auctex
+  :defer t
+  :hook (LaTeX-mode . my/latex-setup)
+  :config
+  (setq TeX-auto-save t
+        TeX-parse-self t
+        TeX-save-query nil
+        TeX-PDF-mode t
+        TeX-source-correlate-mode t
+        TeX-source-correlate-method 'synctex)
+
+  (setq TeX-view-program-selection
+        '(((output-pdf "PDF Viewer"))))
+
+  ;; Use Skim with SyncTeX or fallback to Preview.app
+  (setq TeX-view-program-list
+        '(("PDF Viewer" "/Applications/Skim.app/Contents/SharedSupport/displayline -b -g %n %o %b")))
+
+  (add-to-list 'TeX-command-list
+               '("LatexMk"
+                 "latexmk -pdf -synctex=1 -interaction=nonstopmode %s"
+                 TeX-run-TeX nil t
+                 :help "Run latexmk for PDF output"))
+
+  (setq TeX-command-default "LatexMk"))
+
+(defun my/latex-setup ()
+  "My custom LaTeX setup."
+  (turn-on-reftex)
+  (setq reftex-plug-into-AUCTeX t)
+  (flyspell-mode 1)
+  (LaTeX-math-mode 1)
+  (visual-line-mode 1))
+
+(provide 'init-latex)
+;;; init-latex.el ends here
+```
+

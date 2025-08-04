@@ -1,4 +1,4 @@
-# Directory structure
+# structure
 
 This Emacs configuration is well-structured for writing (especially in LaTeX and Org-mode), and personal knowledge management (via Org-roam).
 
@@ -21,7 +21,7 @@ I use this directly as `~/.emacs.d/init.el` file.
 ```
 
 - Place each file in ~/.emacs.d/lisp/
-
-- Keep init.el in ~/.emacs.d/
+- Place init.el in ~/.emacs.d/
+- Place .latexmkrc in ~/.latexmkrc 
 
 
