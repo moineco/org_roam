@@ -1,0 +1,74 @@
+# init-editing.el
+
+- Place the init-editing.el file in ~/.emacs.d/lisp/
+
+```default
+;;; init-editing.el --- General editing enhancements
+
+(use-package smex
+  :bind ("M-x" . smex))
+
+(use-package smartparens
+  :config
+  (smartparens-global-mode t)
+  (show-smartparens-global-mode t)
+  (sp-pair "\\[" "\\]"))
+
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
+
+(use-package rainbow-identifiers
+  :hook ((prog-mode latex-mode LaTeX-mode) . rainbow-identifiers-mode))
+
+(use-package adaptive-wrap
+  :hook (visual-line-mode . adaptive-wrap-prefix-mode)
+  :config
+  (setq-default adaptive-wrap-extra-indent 0))
+
+(use-package visual-fill-column
+  :config
+  (setq-default fill-column 99999))
+
+;; Spell checking
+(setq ispell-program-name "aspell")
+(setq ispell-dictionary "en")
+
+(dolist (hook '(text-mode-hook org-mode-hook))
+  (add-hook hook 'flyspell-mode))
+(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+
+(global-set-key (kbd "C-;") 'flyspell-correct-wrapper)
+
+(use-package flyspell
+  :ensure t
+  :hook ((text-mode . flyspell-mode)
+         (org-mode  . flyspell-mode)
+         (prog-mode . flyspell-prog-mode))
+  :config
+  (setq ispell-program-name "aspell"
+        ispell-dictionary "en"))
+
+(use-package flyspell-correct
+  :ensure t
+  :after flyspell
+  :bind (:map flyspell-mode-map
+              ("C-;" . flyspell-correct-wrapper)))
+
+;; Custom handy shortcut
+(setq debug-on-error t)
+(electric-indent-mode -1)
+
+(global-set-key (kbd "C-x w")
+  (lambda ()
+    (interactive)
+    (save-excursion
+      (forward-char)
+      (backward-sexp)
+      (let ((pos (point)))
+        (forward-sexp)
+        (kill-ring-save pos (point))))))
+
+(provide 'init-editing)
+;;; init-editing.el ends here
+```
+

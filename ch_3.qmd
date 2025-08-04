@@ -1,0 +1,53 @@
+# init-ui.el
+
+- Place the init-ui.el file in ~/.emacs.d/lisp/
+
+```default
+;;; init-ui.el --- Visual appearance and fonts
+
+(use-package doom-themes
+  :ensure t
+  :config
+  (condition-case nil
+      (load-theme 'doom-one t)
+    (error
+     (progn
+       (message "doom-one not found, falling back to wombat theme.")
+       (load-theme 'wombat t)))))
+
+(defun my/setup-font-based-on-resolution ()
+  "Adjust font size automatically based on display resolution, with terminal fallback."
+  (interactive)
+  (if (display-graphic-p)
+      (let* ((display-width (display-pixel-width))
+             (font-profiles '((3000 . (:font "Monaco" :size 200))
+                              (2500 . (:font "Monaco" :size 190))
+                              (1920 . (:font "Monaco" :size 180))
+                              (0    . (:font "Monaco" :size 170))))
+             (selected-profile
+              (cl-loop for (min-width . settings) in font-profiles
+                       when (> display-width min-width)
+                       return settings)))
+        (when selected-profile
+          (let ((font-name (plist-get selected-profile :font))
+                (font-size (plist-get selected-profile :size)))
+            (when (member font-name (font-family-list))
+              (set-face-attribute 'default nil :font font-name :height font-size)
+              (message "GUI: Font set to %s (%d)" font-name font-size)))))
+    ;; fallback for terminal mode
+    (set-face-attribute 'default nil :height 130)
+    (message "TTY: Default font height set to 130")))
+
+(add-hook 'window-setup-hook #'my/setup-font-based-on-resolution)
+
+(global-display-line-numbers-mode 1)
+(global-visual-line-mode 1)
+
+(provide 'init-ui)
+;;; init-ui.el ends here
+```
+
+
+
+
+

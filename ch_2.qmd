@@ -1,66 +1,40 @@
-# init-macos.el 
+# init.el 
 
-This is init-macos.el configuration for Emacs on MacOS.
-
-We can save this directly as `~/.emacs.d/init-macos.el` file.
+- Keep init.el in ~/.emacs.d/
 
 ```default
-;; -----------------------------------------
-;; MacOS-Specific UI and Performance Tuning
-;; -----------------------------------------
+;;; init.el --- Emacs Configuration Entry Point
 
-(use-package exec-path-from-shell
-  :if (memq window-system '(mac ns x))
-  :config
-  (exec-path-from-shell-initialize))
+;; Load path for modular config files
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
-;; Add MacPorts TeXLive + Hunspell paths
-(let ((my-paths '("/opt/local/libexec/texlive/texbin"
-                  "/opt/local/bin")))
-  (setenv "PATH" (concat (mapconcat 'identity my-paths ":") ":" (getenv "PATH")))
-  (setq exec-path (append my-paths exec-path)))
+;; Load modules
+(require 'init-ui)
+(require 'init-editing)
+(require 'init-org)
+(require 'init-roam)
+(require 'init-latex)
+(require 'init-company)
 
-;; Use macOS dark appearance and transparent title bar (Cocoa only)
+;; macOS-specific setup
 (when (eq system-type 'darwin)
-  (add-to-list 'default-frame-alist '(ns-appearance . dark))
-  (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t)))
+  (require 'init-macos))
 
-;; Retina/HiDPI: pixel-accurate frame resizing
-(setq frame-resize-pixelwise t)
-
-;; Start in maximized window (native fullscreen optional)
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
-
-;; Improve font rendering for emoji/icons
-(set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend)
-
-;; Better scrolling on Mac trackpads
-(setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
-(setq mouse-wheel-progressive-speed nil)
-(setq scroll-step 1)
-
-;; Use system clipboard and avoid pop-up dialog boxes
-(setq select-enable-clipboard t)
-(setq save-interprogram-paste-before-kill t)
-(setq use-dialog-box nil)
-
-;; Optional: Hide menu/tool/scroll bars (uncomment to activate)
-;; (menu-bar-mode -1)
-;; (tool-bar-mode -1)
-;; (scroll-bar-mode -1)
-
-;; Optional: Benchmark startup time
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (message "✅ Emacs ready in %.2f seconds with %d GCs."
-                     (float-time (time-subtract after-init-time before-init-time))
-                     gcs-done)))
-
-;; Optional: Reduce warnings and increase GC threshold during startup
-(setq native-comp-async-report-warnings-errors nil)
-(setq gc-cons-threshold (* 50 1000 1000))
-
-;; Japanese keyboard: input backslash with ¥
-;;(define-key global-map [?¥] [?\\])
+;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
 ```
+
+
+
 
