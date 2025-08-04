@@ -1,0 +1,28 @@
+# init-org.el
+
+- Place the init-org.el file in ~/.emacs.d/lisp/
+
+```default
+;;; init-org.el --- Org mode configuration
+
+(use-package org
+  :ensure t
+  :hook ((org-mode . org-indent-mode)
+         (org-mode . visual-line-mode))
+  :config
+  (setq org-log-done 'time
+        org-startup-folded t
+        org-icalendar-include-todo t
+        org-hide-emphasis-markers t
+        org-pretty-entities t
+        org-return-follows-link t))
+
+;; Optional: modern org appearance
+(use-package org-modern
+  :ensure t
+  :hook (org-mode . org-modern-mode))
+
+(provide 'init-org)
+;;; init-org.el ends here
+```
+

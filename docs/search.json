@@ -48,5 +48,15 @@
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>init-editing.el</span>"
     ]
+  },
+  {
+    "objectID": "ch_5.html",
+    "href": "ch_5.html",
+    "title": "5  init-org.el",
+    "section": "",
+    "text": "Place the init-org.el file in ~/.emacs.d/lisp/\n\n;;; init-org.el --- Org mode configuration\n\n(use-package org\n  :ensure t\n  :hook ((org-mode . org-indent-mode)\n         (org-mode . visual-line-mode))\n  :config\n  (setq org-log-done 'time\n        org-startup-folded t\n        org-icalendar-include-todo t\n        org-hide-emphasis-markers t\n        org-pretty-entities t\n        org-return-follows-link t))\n\n;; Optional: modern org appearance\n(use-package org-modern\n  :ensure t\n  :hook (org-mode . org-modern-mode))\n\n(provide 'init-org)\n;;; init-org.el ends here",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>init-org.el</span>"
+    ]
   }
 ]
