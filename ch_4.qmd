@@ -1,8 +1,8 @@
 # init-editing.el
 
-- Place the init-editing.el file in ~/.emacs.d/lisp/
+-   Place the init-editing.el file in \~/.emacs.d/lisp/
 
-```default
+``` default
 ;;; init-editing.el --- General editing enhancements
 
 (use-package smex
@@ -71,4 +71,3 @@
 (provide 'init-editing)
 ;;; init-editing.el ends here
 ```
-

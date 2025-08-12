@@ -1,8 +1,8 @@
 # init-org.el
 
-- Place the init-org.el file in ~/.emacs.d/lisp/
+-   Place the init-org.el file in \~/.emacs.d/lisp/
 
-```default
+``` default
 ;;; init-org.el --- Org mode configuration
 
 (use-package org
@@ -25,4 +25,3 @@
 (provide 'init-org)
 ;;; init-org.el ends here
 ```
-
