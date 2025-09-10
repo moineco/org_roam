@@ -1,8 +1,8 @@
 # init-company.el
 
-- Place the init-company.el file in ~/.emacs.d/lisp/
+-   Place the init-company.el file in \~/.emacs.d/lisp/
 
-```default
+``` default
 ;;; init-company.el --- Company-mode configuration
 
 (use-package company
@@ -17,4 +17,3 @@
 (provide 'init-company)
 ;;; init-company.el ends here
 ```
-

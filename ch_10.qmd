@@ -1,8 +1,8 @@
 # latexmkrc
 
-- Place .latexmkrc in ~/.latexmkrc 
+-   Place .latexmkrc in \~/.latexmkrc
 
-```default
+``` default
 # Generate pdf using pdflatex (-pdf)
 $pdf_mode=1;
 
@@ -15,4 +15,3 @@ $pdflatex= 'pdflatex -synctex=1 --interaction=nonstopmode -file-line-error';
 # Continous compiling
 $preview_continuous_mode=1;
 ```
-
