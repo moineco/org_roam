@@ -1,7 +1,7 @@
-# Simple org-roam setup
+# MacOS simple setup
 
 ```default
-;;; init.el --- Emacs config Org-roam-based daily notes
+;;; init.el --- MacOSX
 
 ;; ---------------------
 ;; 📦 Package Management
