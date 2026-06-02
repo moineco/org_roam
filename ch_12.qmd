@@ -1,4 +1,4 @@
-# LinuxOS simple setup
+# [LinuxOS] simple setup
 
 ```default
 ;;; init.el --- Ubuntu

@@ -25,6 +25,7 @@ book:
       chapters:
         - ch_13.qmd
         - ch_14.qmd
+        - ch_15.qmd
         - ch_12.qmd
     - references.qmd
 

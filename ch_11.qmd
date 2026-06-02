@@ -1,4 +1,4 @@
-# MacOS simple setup
+# [MacOSX] simple setup
 
 ```default
 ;;; init.el --- MacOSX

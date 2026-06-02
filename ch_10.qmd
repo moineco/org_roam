@@ -1,4 +1,4 @@
-# latexmkrc
+# [MacOSX] latexmkrc
 
 -   Place .latexmkrc in \~/.latexmkrc
 

@@ -1,4 +1,4 @@
-# MacOSX init.el 
+# [MacOSX] init.el 
 
 - Keep init.el in ~/.emacs.d/
 

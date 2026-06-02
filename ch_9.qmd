@@ -1,4 +1,4 @@
-# init-macos.el
+# [MacOSX] init-macos.el
 
 - Place the init-macos.el file in \~/.emacs.d/lisp/
 

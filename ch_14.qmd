@@ -1,4 +1,4 @@
-# LinuxOS init.el 
+# [LinuxOS] init.el 
 
 - Keep init.el in ~/.emacs.d/
 

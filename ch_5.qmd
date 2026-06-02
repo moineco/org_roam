@@ -1,4 +1,4 @@
-# init-org.el
+# [MacOSX] init-org.el
 
 - Place the init-org.el file in \~/.emacs.d/lisp/
 
