@@ -1,4 +1,4 @@
-# structure
+# MacOSX structure
 
 This Emacs configuration is well-structured for writing (especially in LaTeX and Org-mode), and personal knowledge management (via Org-roam).
 
@@ -6,7 +6,7 @@ I use this directly as `~/.emacs.d/init.el` file.
 
 ```default
 ~/.emacs.d/
-├── init.el                    ;; Main entry point (already done)
+├── init.el                    ;; Main entry point 
 ├── custom.el                  ;; User customizations
 ├── backups/                   ;; Auto-created
 ├── auto-saves/                ;; Auto-created

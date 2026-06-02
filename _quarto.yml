@@ -8,18 +8,22 @@ book:
   date: "today"
   chapters:
     - index.qmd
-    - ch_1.qmd
-    - ch_2.qmd
-    - ch_3.qmd
-    - ch_4.qmd
-    - ch_5.qmd
-    - ch_6.qmd
-    - ch_7.qmd
-    - ch_8.qmd
-    - ch_9.qmd
-    - ch_10.qmd
-    - ch_11.qmd
-    - ch_12.qmd
+    - part: "MacOSX setup"
+      chapters:
+        - ch_1.qmd
+        - ch_2.qmd
+        - ch_3.qmd
+        - ch_4.qmd
+        - ch_5.qmd
+        - ch_6.qmd
+        - ch_7.qmd
+        - ch_8.qmd
+        - ch_9.qmd
+        - ch_10.qmd
+        - ch_11.qmd
+    - part: "LinuxOS setup"
+      chapters:
+        - ch_12.qmd
     - references.qmd
 
 bibliography: references.bib

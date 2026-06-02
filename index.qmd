@@ -2,7 +2,7 @@
 
 ```default
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;  Emacs Configuration (MacOS, Ubuntu 26 / Emacs 30+)
+;;  Emacs Configuration (MacOSX, LinuxOS / Emacs 30+)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; This configuration is designed as a lightweight but powerful
