@@ -23,6 +23,7 @@ book:
         - ch_11.qmd
     - part: "LinuxOS setup"
       chapters:
+        - ch_13.qmd
         - ch_12.qmd
     - references.qmd
 
