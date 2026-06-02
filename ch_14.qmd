@@ -1,4 +1,4 @@
-# MacOSX init.el 
+# LinuxOS init.el 
 
 - Keep init.el in ~/.emacs.d/
 
@@ -6,32 +6,22 @@
 ;;; init.el --- Emacs Configuration Entry Point
 
 ;; Load path for modular config files
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-
-;; Load modules
-(require 'init-ui)
-(require 'init-editing)
-(require 'init-org)
-(require 'init-roam)
-(require 'init-latex)
-(require 'init-company)
-
-;; macOS-specific setup
-(when (eq system-type 'darwin)
-  (require 'init-macos))
+(add-to-list 'load-path
+             (expand-file-name "lisp" user-emacs-directory))
 
 ;; -----------------------------------------------
-;; 📦 Package Manager Setup (package.el + use-package)
+;; 📦 Package Manager Setup (package.el)
 ;; -----------------------------------------------
 
 (require 'package)
+
 (setq package-archives
       '(("melpa"        . "https://melpa.org/packages/")
         ("melpa-stable" . "https://stable.melpa.org/packages/")
         ("gnu"          . "https://elpa.gnu.org/packages/")
         ("nongnu"       . "https://elpa.nongnu.org/nongnu/")))
 
-;; (package-initialize)
+(package-initialize)
 
 (unless package-archive-contents
   (package-refresh-contents))
@@ -39,12 +29,28 @@
 ;; -----------------------------------
 ;; Save customization to separate file
 ;; -----------------------------------
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+
+(setq custom-file
+      (expand-file-name "custom.el"
+                        user-emacs-directory))
+
 (load custom-file 'noerror)
+
+;; -----------------------------------------------
+;; Load modules
+;; -----------------------------------------------
+
+(require 'init-ui)
+(require 'init-editing)
+(require 'init-org)
+(require 'init-roam)
+(require 'init-latex)
+(require 'init-company)
+
+;; Linux/Ubuntu-specific setup
+(when (eq system-type 'gnu/linux)
+  (require 'init-linux))
 
 ;;; init.el ends here
 ```
-
-
-
 
