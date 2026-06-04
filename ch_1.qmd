@@ -7,9 +7,6 @@ I use this directly as `~/.emacs.d/init.el` file.
 ``` default
 ~/.emacs.d/
 ├── init.el                    ;; Main entry point 
-├── custom.el                  ;; User customizations
-├── backups/                   ;; Auto-created
-├── auto-saves/                ;; Auto-created
 └── lisp/
     ├── init-ui.el             ;; Fonts, theme, visuals
     ├── init-editing.el        ;; Smartparens, smex, wraps, spelling
@@ -17,7 +14,7 @@ I use this directly as `~/.emacs.d/init.el` file.
     ├── init-roam.el           ;; Org-roam config
     ├── init-latex.el          ;; AUCTeX + latexmk setup
     ├── init-company.el        ;; Company-mode auto-completion
-    └── init-macos.el          ;; macOS-specific setup
+    └── init-os.el             ;; OS-specific setup
 ```
 
 - Place each file in \~/.emacs.d/lisp/
