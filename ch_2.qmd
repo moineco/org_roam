@@ -16,9 +16,9 @@
 (require 'init-latex)
 (require 'init-company)
 
-;; macOS-specific setup
+;; OS-specific setup
 (when (eq system-type 'darwin)
-  (require 'init-macos))
+  (require 'init-os))
 
 ;; -----------------------------------------------
 ;; 📦 Package Manager Setup (package.el + use-package)

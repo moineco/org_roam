@@ -3,7 +3,7 @@
 - Place the init-latex.el file in \~/.emacs.d/lisp/
 
 ``` default
-;;; init-latex.el --- LaTeX / AUCTeX + latexmk configuration
+;;; init-latex.el --- LaTeX/AUCTeX + latexmk configuration
 
 (use-package tex
   :ensure auctex
