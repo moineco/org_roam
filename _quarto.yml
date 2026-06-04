@@ -8,7 +8,7 @@ book:
   date: "today"
   chapters:
     - index.qmd
-    - part: "MacOSX/LinuxOS setup"
+    - part: "Mac/Linux setup"
       chapters:
         - ch_1.qmd
         - ch_2.qmd

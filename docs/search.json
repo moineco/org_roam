@@ -16,7 +16,7 @@
     "section": "",
     "text": "This Emacs configuration is well-structured for writing (especially in LaTeX and Org-mode), and personal knowledge management (via Org-roam).\nI use this directly as ~/.emacs.d/init.el file.\n~/.emacs.d/\n├── init.el                    ;; Main entry point \n└── lisp/\n    ├── init-ui.el             ;; Fonts, theme, visuals\n    ├── init-editing.el        ;; Smartparens, smex, wraps, spelling\n    ├── init-org.el            ;; Org-mode settings\n    ├── init-roam.el           ;; Org-roam config\n    ├── init-latex.el          ;; AUCTeX + latexmk setup\n    ├── init-company.el        ;; Company-mode auto-completion\n    └── init-os.el             ;; OS-specific setup\n\nPlace each file in ~/.emacs.d/lisp/\nPlace init.el in ~/.emacs.d/\nPlace .latexmkrc in ~/.latexmkrc",
     "crumbs": [
-      "MacOSX/LinuxOS setup",
+      "Mac/Linux setup",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>structure</span>"
     ]
   },
