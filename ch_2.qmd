@@ -1,8 +1,8 @@
-# [MacOSX] init.el 
+# init.el
 
-- Keep init.el in ~/.emacs.d/
+- Keep init.el in \~/.emacs.d/
 
-```default
+``` default
 ;;; init.el --- Emacs Configuration Entry Point
 
 ;; Load path for modular config files
@@ -44,7 +44,3 @@
 
 ;;; init.el ends here
 ```
-
-
-
-

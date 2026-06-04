@@ -1,4 +1,4 @@
-# [MacOSX] init-company.el
+# init-company.el
 
 - Place the init-company.el file in \~/.emacs.d/lisp/
 

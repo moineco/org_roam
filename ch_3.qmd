@@ -1,8 +1,8 @@
-# [MacOSX] init-ui.el
+# init-ui.el
 
-- Place the init-ui.el file in ~/.emacs.d/lisp/
+- Place the init-ui.el file in \~/.emacs.d/lisp/
 
-```default
+``` default
 ;;; init-ui.el --- Visual appearance and fonts
 
 (use-package doom-themes
@@ -46,8 +46,3 @@
 (provide 'init-ui)
 ;;; init-ui.el ends here
 ```
-
-
-
-
-

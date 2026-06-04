@@ -1,10 +1,10 @@
-# [MacOSX] structure
+# structure
 
 This Emacs configuration is well-structured for writing (especially in LaTeX and Org-mode), and personal knowledge management (via Org-roam).
 
 I use this directly as `~/.emacs.d/init.el` file.
 
-```default
+``` default
 ~/.emacs.d/
 ├── init.el                    ;; Main entry point 
 ├── custom.el                  ;; User customizations
@@ -20,8 +20,6 @@ I use this directly as `~/.emacs.d/init.el` file.
     └── init-macos.el          ;; macOS-specific setup
 ```
 
-- Place each file in ~/.emacs.d/lisp/
-- Place init.el in ~/.emacs.d/
-- Place .latexmkrc in ~/.latexmkrc 
-
-
+- Place each file in \~/.emacs.d/lisp/
+- Place init.el in \~/.emacs.d/
+- Place .latexmkrc in \~/.latexmkrc

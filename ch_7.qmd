@@ -1,4 +1,4 @@
-# [MacOSX] init-latex.el
+# init-latex.el
 
 - Place the init-latex.el file in \~/.emacs.d/lisp/
 
