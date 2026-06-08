@@ -113,7 +113,7 @@
     "href": "ch_10.html",
     "title": "10  latexmkrc",
     "section": "",
-    "text": "Place .latexmkrc in ~/.latexmkrc\n\n# Generate pdf using pdflatex (-pdf)\n$pdf_mode=1;\n\n# Use bibtex if a .bib file exists\n$bibtex_use=1;\n\n# Define command to compile with pdfsync support and nonstopmode\n$pdflatex= 'pdflatex -synctex=1 --interaction=nonstopmode -file-line-error';\n\n# Continous compiling\n$preview_continuous_mode=1;",
+    "text": "Place .latexmkrc in ~/.latexmkrc\n\n# Generate pdf using pdflatex (-pdf)\n$pdf_mode=1;\n\n# Use bibtex if a .bib file exists\n$bibtex_use=1;\n\n# Define command to compile with pdfsync support and nonstopmode\n$pdflatex= 'pdflatex -synctex=1 --interaction=nonstopmode -file-line-error';\n\n# Continous compiling\n$preview_continuous_mode=1;\n\nThe following .latexmkrc works perfectly with Ubuntu OS while using evince as a pdf reader\n\n# ~/.latexmkrc\n\n# Generate PDF\n$pdf_mode = 1;\n\n# Use BibTeX when needed\n$bibtex_use = 1;\n\n# pdflatex command\n$pdflatex = 'pdflatex %O -synctex=1 -interaction=nonstopmode -file-line-error %S';\n\n# Continuous compilation (effective when latexmk is run with -pvc)\n$preview_continuous_mode = 1;\n\n# PDF viewer\n$pdf_previewer = 'evince';\n\n# Common auxiliary files to clean\n$clean_ext = 'acn acr alg aux bbl bcf blg fdb_latexmk fls glg glo gls idx ilg ind ist lof log lot out run.xml synctex.gz toc';",
     "crumbs": [
       "Mac/Linux setup",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>latexmkrc</span>"

@@ -15,3 +15,28 @@ $pdflatex= 'pdflatex -synctex=1 --interaction=nonstopmode -file-line-error';
 # Continous compiling
 $preview_continuous_mode=1;
 ```
+
+- The following .latexmkrc works perfectly with Ubuntu OS while using evince as a pdf reader
+
+```default
+# ~/.latexmkrc
+
+# Generate PDF
+$pdf_mode = 1;
+
+# Use BibTeX when needed
+$bibtex_use = 1;
+
+# pdflatex command
+$pdflatex = 'pdflatex %O -synctex=1 -interaction=nonstopmode -file-line-error %S';
+
+# Continuous compilation (effective when latexmk is run with -pvc)
+$preview_continuous_mode = 1;
+
+# PDF viewer
+$pdf_previewer = 'evince';
+
+# Common auxiliary files to clean
+$clean_ext = 'acn acr alg aux bbl bcf blg fdb_latexmk fls glg glo gls idx ilg ind ist lof log lot out run.xml synctex.gz toc';
+```
+
