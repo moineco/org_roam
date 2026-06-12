@@ -15,6 +15,7 @@
 (require 'init-roam)
 (require 'init-latex)
 (require 'init-company)
+(require 'init-pandoc)
 
 ;; OS-specific setup
 (when (eq system-type 'darwin)
